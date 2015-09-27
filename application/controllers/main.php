@@ -15,8 +15,13 @@ class Main extends MY_Controller {
  
     public function news($id_news){
     	$this->load->model('mnews');
-    	$data['news'] = $this->mnews->get_news($id_news);
-        $this->render_pages('news',$data);
+        if($this->mnews->news($id_news)->num_rows > 0){
+    	   $data['news'] = $this->mnews->news($id_news)->row();
+           $this->render_pages('news',$data);
+        }else{
+            error_reporting(0);
+            $this->render_pages('news');
+        }
     }
 
 

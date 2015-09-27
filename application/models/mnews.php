@@ -15,18 +15,22 @@ class Mnews extends CI_Model{
 	}
 
 	function news($id_news){
-		$this->db->select('title','content_news','date_news');
+		$this->db->select('title,content_news,date_news');
 		$this->db->from('news');
 		$this->db->where('id_news',$id_news);
-		return $this->db->get()->row();
+		return $this->db->get();
+	
 	}
 
 	function get_user($username,$password){
+		//return $this->db->query("select username,password,name_level from user join level on user.level=level.id_level where username='$username' and password='$password'");
 		$this->db->select('username,password,name_level');
 		$this->db->from('user');
 		$this->db->join('level','user.level=level.id_level');
 		$this->db->where(array('username'=>$username,'password'=>$password));
 		return $this->db->get();
+		
+
 	}
 
 	function select_user(){
